@@ -139,8 +139,6 @@ function palindrome(str){
  
 
   }
-
-
   console.log(hashmap);
 
   //to check if a string is a palindrome
@@ -167,8 +165,43 @@ function palindrome(str){
 
 }
 
+//input: ['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']
+//output: [['east', 'teas', 'eats'], ['cars', 'arcs'], ['acre', 'race']]
+
+function alphabetize(word) {
+  if (!word) {
+    return;
+  }
+
+  word = word.split('');
+  word = word.sort();
+  word = word.join('');
+  return word;
+}
+
+function anagramGrouping(array) {
+  const hashMap = new Map();
+  let arrayCount = 0;
+  const resultArray = [];
+
+
+  for (let i=0; i < array.length; i++) {
+    let sortedWord = alphabetize(array[i]);
+    if (hashMap.has(sortedWord) === false) {
+      hashMap.set(sortedWord, arrayCount);
+      resultArray.push([array[i]]);
+      arrayCount++;
+    } else {
+      const arrayIndex = hashMap.get(sortedWord);
+      resultArray[arrayIndex].push([array[i]]);
+    }
+  }
+  return resultArray;
+}
+
 
 //check odd counter - if greater than 1 not a palindrome
+//console.log(palindrome('Aasdfasdjfh asaN'));
 
 
-console.log(palindrome('Aasdfasdjfh asaN'));
+console.log(anagramGrouping(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
